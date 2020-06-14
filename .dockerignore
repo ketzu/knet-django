@@ -1,0 +1,9 @@
+db.sqlite3
+README.md
+LICENSE
+.gitignore
+venv/
+__pycache__/
+.idea/
+media/
+venv/
