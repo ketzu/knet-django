@@ -22,12 +22,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if 'DEBUG' in os.environ:
     DEBUG = True
     SECRET_KEY = 'j4ggc)_hv$nhv%em1&k(-!w5q9_81jj7ofnkyit=oebr61#rg#'
+    ALLOWED_HOSTS = []
 else:
     DEBUG = False
     with open('~/secrets/knet_django.key') as f:
         SECRET_KEY = f.read().strip()
+    ALLOWED_HOSTS = ['ketzu.net', 'shittyidle.com']
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
