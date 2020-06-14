@@ -1,0 +1,15 @@
+{% extends 'list_environment.html' %}
+
+{% block list_title %}
+    Photos
+{% endblock %}
+
+{% block list_entries %}
+    <div class="columns is-centered is-vcentered is-multiline" style="margin-top: 25px;margin-bottom:25px;">
+        {% for gallery in object_list %}
+            {% include 'photography/single_gallery.html' %}
+        {% empty %}
+            No videos yet.
+        {% endfor %}
+    </div>
+{% endblock %}

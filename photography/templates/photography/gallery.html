@@ -1,0 +1,18 @@
+{% extends 'list_environment.html' %}
+
+{% block list_title %}
+    {{ title }}
+{% endblock %}
+
+{% block list_entries %}
+    <div class="container">
+        <div style="display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: flex-start;">
+            {% for image in object_list %}
+                <div style="margin: 5px;">
+                    <img height="200" src="{{ image.picture.thumbnail.url }}">
+                </div>
+            {% empty %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

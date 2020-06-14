@@ -1,0 +1,13 @@
+{% extends 'list_environment.html' %}
+
+{% block list_title %}
+    Science
+{% endblock %}
+
+{% block list_entries %}
+    {% for article in object_list %}
+        {% include 'science/single_article.html' %}
+    {% empty %}
+        No articles yet.
+    {% endfor %}
+{% endblock %}

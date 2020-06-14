@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <section class="section has-background-dark hero is-fullheight-with-navbar is-vcentered is-centered">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered is-vcentered">
+                    <div class="column has-text-right">
+                        <img width="350" src="{% static 'self.jpg' %}"
+                             style="border-radius: .3rem; border: 1px solid white;">
+                    </div>
+                    <div class="column mx-6">
+                        <p class="has-text-light is-size-1">
+                            David Mödinger
+                        </p>
+                        {% for paragraph in paragraphs %}
+                            <p class="has-text-light is-size-4 my-5 has-text-weight-light">
+                                {{ paragraph }}
+                            </p>
+                        {% empty %}
+                            <p class="has-text-light is-size-4 my-5 has-text-weight-light">
+                                I messed up my self description!
+                            </p>
+                            <p class="has-text-light is-size-4 my-5 has-text-weight-light">
+                                I could have placed a timelss default self description, but opted to let you know I
+                                messed up.
+                            </p>
+                        {% endfor %}
+                        <p class="has-text-light is-size-4 my-5">
+                            {% for icon in icons %}
+                                <a href="{{ icon.link }}" class="mx-2 has-text-light">
+                                    <i class="{{ icon.icon }} fa-2x"></i>
+                                </a>
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Science -->
+    <section class="section has-background-light">
+        <div class="container has-text-centered my-6">
+            <p class="title is-size-2">
+                I have some noteworthy publications
+            </p>
+            <div class="columns is-multiline is-centered mt-6">
+                {% for article in science %}
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-content" style="min-height: 120px;">
+                                <p class="title is-size-5">
+                                    {{ article.title }}
+                                </p>
+                            </div>
+                            <div class="card-footer" style="border: 0;">
+                                <p class="card-footer-item" style="border: 0;">
+                                    <a target="_blank" rel="noopener noreferrer"
+                                       href="{{ article.link }}">{{ article.conf.short }}</a>
+                                </p>
+                                <p class="card-footer-item" style="border: 0;">
+                                    <a target="_blank" href="{{ article.file }}">Read</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Medium -->
+    <section class="section has-background-light">
+        <div class="container has-text-centered my-6">
+            <p class="title is-size-2">
+                Sometimes I write for fun
+            </p>
+            <div class="columns mt-6">
+                {% for article in medium %}
+                    <div class="column">
+                        {% include 'blog/single_article.html' %}
+                    </div>
+                {% empty %}
+                    <div class="column">
+                        <div class="notification is-warning">
+                            <p class="is-size-5">
+                                Seems like I couldn't select any as "best."
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Pictures -->
+    <section class="section has-background-light">
+        <div class="container has-text-centered mt-6">
+            <p class="title is-size-2 mb-6">
+                Also check out my Photography and Videos
+            </p>
+            <div class="columns is-centered is-multiline mt-6">
+                {% for gallery in galleries %}
+                    {% include 'photography/single_gallery.html' %}
+                {% empty %}
+                    <div class="column">
+                        <div class="notification is-warning">
+                            <p class="is-size-5">
+                                Seems like I couldn't select any as "best."
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos -->
+    <section class="section has-background-light">
+        <div class="container has-text-centered mb-6">
+            <div class="columns is-centered is-vcentered is-multiline">
+                {% for video in videos %}
+                    {% include 'videography/single_video.html' %}
+                {% empty %}
+                    <div class="column">
+                        <div class="notification is-warning">
+                            <p class="is-size-5">
+                                Seems like I couldn't select any as "best."
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

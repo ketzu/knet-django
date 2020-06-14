@@ -1,0 +1,22 @@
+<div class="card" style="margin: 15px;">
+    <div class="card-content">
+        <div class="content">
+            <p class="title">
+                {{ article.title }}
+            </p>
+            <p class="subtitle">
+                {{ article.conf.name }}
+                ({{ article.conf.short }})
+            </p>
+            <p class="has-text-right">
+                <a href="{{ article.link }}">
+                    Conference Link
+                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{{ article.file.url }}">
+                    Read Now
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

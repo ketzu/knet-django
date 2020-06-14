@@ -1,0 +1,25 @@
+<div class="card">
+    <div class="media">
+        {% if article.picture %}
+            <figure class="media-left">
+                <p class="image">
+                    <a target="_blank" rel="noopener noreferrer" href="{{ article.link }}">
+                        <img src="{{ article.picture.thumbnail.url }}" width="150" height="100">
+                    </a>
+                </p>
+            </figure>
+        {% endif %}
+
+        <div class="has-text-left" style="padding-top:10px;">
+            <a target="_blank" rel="noopener noreferrer" href="{{ article.link }}">
+                        <span class="title">
+                            {{ article.title }}
+                        </span>
+                <br>
+                <span class="is-size-5 has-text-grey-darker">
+                            {{ article.description }}
+                        </span>
+            </a>
+        </div>
+    </div>
+</div>
