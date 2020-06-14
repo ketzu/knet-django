@@ -26,7 +26,7 @@ if 'DEBUG' in os.environ:
 else:
     DEBUG = False
     SECRET_KEY = os.getenv('SECRET_KEY')
-    ALLOWED_HOSTS = ['ketzu.net', 'shittyidle.com', '127.0.0.1']
+    ALLOWED_HOSTS = ['.ketzu.net', '.shittyidle.com', 'ketzu.net', 'shittyidle.com', '127.0.0.1']
 
 
 # Application definition
