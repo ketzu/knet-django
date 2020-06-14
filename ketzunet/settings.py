@@ -25,8 +25,7 @@ if 'DEBUG' in os.environ:
     ALLOWED_HOSTS = []
 else:
     DEBUG = False
-    with open('~/secrets/knet_django.key') as f:
-        SECRET_KEY = f.read().strip()
+    SECRET_KEY = os.getenv('SECRET_KEY')
     ALLOWED_HOSTS = ['ketzu.net', 'shittyidle.com']
 
 
