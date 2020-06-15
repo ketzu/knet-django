@@ -5,33 +5,44 @@
 {% endblock %}
 
 {% block list_entries %}
-    {% for article in object_list %}
-        <div class="card">
-            <div class="media">
-                {% if article.picture %}
-                    <figure class="media-left">
-                        <p class="image">
-                            <a target="_blank" rel="noopener noreferrer" href="{{ article.link }}">
-                                <img src="{{ article.picture.thumbnail.url }}" width="150" height="100">
+    <div class="columns is-centered is-vcentered is-multiline" style="margin-top: 25px;margin-bottom:25px;">
+        {% for project in object_list %}
+            <div class="column is-12">
+                <div class="card">
+                    <div class="media">
+                        <figure class="media-left">
+                            <a target="_blank" rel="noopener noreferrer" href="{{ project.link }}">
+                                <img src="{{ project.image.url }}" height="500">
                             </a>
-                        </p>
-                    </figure>
-                {% endif %}
+                        </figure>
 
-                <div style="padding-top:10px;">
-                    <a target="_blank" rel="noopener noreferrer" href="{{ article.link }}">
+                        <div style="padding-top:10px;">
                         <span class="title">
-                            {{ article.title }}
+                            {{ project.name }}
                         </span>
-                        <br>
-                        <span class="is-size-5 has-text-grey-darker">
-                            {{ article.description }}
+                            <br>
+                            <span class="is-size-5 has-text-grey-darker">
+                            {{ project.description }}
                         </span>
-                    </a>
+                        </div>
+                    </div>
+                            <p class="has-text-right mx-1 pb-2">
+                            {% if project.git %}
+                                <a target="_blank" rel="noopener noreferrer" class="mx-2" href="{{ project.git }}">
+                                    Visit git
+                                </a>
+                            {% endif %}
+
+                                {% if project.link %}
+                                    <a target="_blank" rel="noopener noreferrer" class="mx-2" href="{{ project.link }}">
+                                        Visit Project
+                                    </a>
+                                {% endif %}
+                        </p>
                 </div>
             </div>
-        </div>
-    {% empty %}
-        No projects yet.
-    {% endfor %}
+        {% empty %}
+            No projects yet.
+        {% endfor %}
+    </div>
 {% endblock %}
