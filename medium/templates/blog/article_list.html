@@ -5,9 +5,13 @@
 {% endblock %}
 
 {% block list_entries %}
+    <div class="columns is-centered is-vcentered is-multiline" style="margin-top: 25px;margin-bottom:25px;">
     {% for article in object_list %}
-        {% include 'blog/single_article.html' %}
+        <div class="column is-12">
+            {% include 'blog/single_article.html' %}
+        </div>
     {% empty %}
         No articles yet.
     {% endfor %}
+    </div>
 {% endblock %}

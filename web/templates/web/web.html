@@ -78,18 +78,10 @@
             <p class="title is-size-2">
                 Sometimes I write for fun
             </p>
-            <div class="columns mt-6">
+            <div class="columns mt-6 is-multiline">
                 {% for article in medium %}
-                    <div class="column">
+                    <div class="column is-12">
                         {% include 'blog/single_article.html' %}
-                    </div>
-                {% empty %}
-                    <div class="column">
-                        <div class="notification is-warning">
-                            <p class="is-size-5">
-                                Seems like I couldn't select any as "best."
-                            </p>
-                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -105,14 +97,6 @@
             <div class="columns is-centered is-multiline mt-6">
                 {% for gallery in galleries %}
                     {% include 'photography/single_gallery.html' %}
-                {% empty %}
-                    <div class="column">
-                        <div class="notification is-warning">
-                            <p class="is-size-5">
-                                Seems like I couldn't select any as "best."
-                            </p>
-                        </div>
-                    </div>
                 {% endfor %}
             </div>
         </div>
@@ -124,14 +108,6 @@
             <div class="columns is-centered is-vcentered is-multiline">
                 {% for video in videos %}
                     {% include 'videography/single_video.html' %}
-                {% empty %}
-                    <div class="column">
-                        <div class="notification is-warning">
-                            <p class="is-size-5">
-                                Seems like I couldn't select any as "best."
-                            </p>
-                        </div>
-                    </div>
                 {% endfor %}
             </div>
         </div>
