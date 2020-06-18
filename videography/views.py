@@ -8,4 +8,5 @@ from videography.models import Video
 
 class VideoList(ListView):
     model = Video
+    ordering = ['-pk']
     template_name = "videography/video_list.html"

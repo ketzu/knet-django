@@ -8,4 +8,5 @@ from projects.models import Project
 
 class ProjectList(ListView):
     model = Project
+    ordering = ['-pk']
     template_name = "projects/project_list.html"
