@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 from medium.models import Article as MediumArticle
 from photography.models import Gallery
+from projects.models import Project
 from science.models import Article as ScienceArticle
 from videography.models import Video
 
@@ -48,3 +49,10 @@ class FrontVideo(models.Model):
 
     def __str__(self):
         return str(self.video)
+
+
+class FrontProjects(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.project)

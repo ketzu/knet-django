@@ -88,6 +88,49 @@
         </div>
     </section>
 
+    <!-- Projects -->
+    <section class="section has-background-light">
+        <div class="container has-text-centered my-6">
+            <p class="title is-size-2">
+                I like to build some smaller things, too
+            </p>
+            <div class="columns is-centered mt-6 is-multiline">
+                {% for project in projects %}
+                    <div class="card" style="width:250px;">
+                        <div class="card-image is-centered is-vcentered">
+                            <figure class="image is-1by1">
+                                <a target="_blank" rel="noopener noreferrer" href="{{ project.link }}">
+                                    <img src="{{ project.image.show.url }}" width="250" height="250">
+                                </a>
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="content">
+
+                            <p class="title">
+                                {{ project.name }}
+                            </p>
+                            <p class="has-text-light is-size-4 my-5">
+                                {% if project.git %}
+                                    <a target="_blank" rel="noopener noreferrer" class="mx-2" href="{{ project.git }}">
+                                        <i class="fab fa-github fa-2x"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if project.link %}
+                                    <a target="_blank" rel="noopener noreferrer" class="mx-2" href="{{ project.link }}">
+                                        <i class="fas fa-external-link-alt fa-2x"></i>
+                                    </a>
+                                {% endif %}
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
     <!-- Pictures -->
     <section class="section has-background-light">
         <div class="container has-text-centered mt-6">
