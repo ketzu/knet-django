@@ -14,7 +14,7 @@ class ImageAdmin(admin.ModelAdmin):
 
 class ImageStacked(admin.StackedInline):
     model = Image
-    extra = 20
+    extra = 4
 
 
 class GalleryAdmin(admin.ModelAdmin):
