@@ -7,40 +7,67 @@
 {% block list_entries %}
     <div class="columns is-centered is-vcentered is-multiline" style="margin-top: 25px;margin-bottom:25px;">
         {% for project in object_list %}
-            <div class="column is-12">
-                <div class="card">
-                    <div class="media">
-                        <figure class="media-left">
-                            <a target="_blank" rel="noopener noreferrer" href="{{ project.link }}">
-                                <img src="{{ project.image.url }}" height="500">
+            {% if  forloop.counter|divisibleby:2 %}
+                <div class="column is-1"></div>
+                <div class="column has-text-right is-7">
+                    <p class="is-size-1">
+                        {{ project.name }}
+                    </p>
+                    <p class="is-size-4 my-5 has-text-weight-light">
+                        {{ project.description }}
+                    </p>
+                    <p class="has-text-light is-size-4 my-5">
+                        {% if project.git %}
+                            <a target="_blank" rel="noopener noreferrer" class="mx-2" href="{{ project.git }}">
+                                <i class="fab fa-github fa-2x"></i>
                             </a>
-                        </figure>
+                        {% endif %}
 
-                        <div style="padding-top:10px;">
-                        <span class="title">
-                            {{ project.name }}
-                        </span>
-                            <br>
-                            <span class="is-size-5 has-text-grey-darker">
-                            {{ project.description }}
-                        </span>
-                        </div>
-                    </div>
-                            <p class="has-text-right mx-1 pb-2">
-                            {% if project.git %}
-                                <a target="_blank" rel="noopener noreferrer" class="mx-2" href="{{ project.git }}">
-                                    Visit git
-                                </a>
-                            {% endif %}
-
-                                {% if project.link %}
-                                    <a target="_blank" rel="noopener noreferrer" class="mx-2" href="{{ project.link }}">
-                                        Visit Project
-                                    </a>
-                                {% endif %}
-                        </p>
+                        {% if project.link %}
+                            <a target="_blank" rel="noopener noreferrer" class="mx-2" href="{{ project.link }}">
+                                <i class="fas fa-external-link-alt fa-2x"></i>
+                            </a>
+                        {% endif %}
+                    </p>
                 </div>
-            </div>
+                <div class="column is-4">
+                    <a target="_blank" rel="noopener noreferrer" href="{{ project.link }}">
+                        <img src="{{ project.image.show.url }}" height="{{ project.image.show.width }}"
+                             width="{{ project.image.show.height }}"
+                             style="border-radius: 1rem; border: 0px solid white;">
+                    </a>
+                </div>
+            {% else %}
+                <div class="column has-text-right is-4">
+                    <a target="_blank" rel="noopener noreferrer" href="{{ project.link }}">
+                        <img src="{{ project.image.show.url }}" height="{{ project.image.show.width }}"
+                             width="{{ project.image.show.height }}"
+                             style="border-radius: 1rem; border: 0px solid white;">
+                    </a>
+                </div>
+                <div class="column is-7">
+                    <p class="is-size-1">
+                        {{ project.name }}
+                    </p>
+                    <p class="is-size-4 my-5 has-text-weight-light">
+                        {{ project.description|safe }}
+                    </p>
+                    <p class="has-text-light is-size-4 my-5">
+                        {% if project.git %}
+                            <a target="_blank" rel="noopener noreferrer" class="mx-2" href="{{ project.git }}">
+                                <i class="fab fa-github fa-2x"></i>
+                            </a>
+                        {% endif %}
+
+                        {% if project.link %}
+                            <a target="_blank" rel="noopener noreferrer" class="mx-2" href="{{ project.link }}">
+                                <i class="fas fa-external-link-alt fa-2x"></i>
+                            </a>
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="column is-1"></div>
+            {% endif %}
         {% empty %}
             No projects yet.
         {% endfor %}
