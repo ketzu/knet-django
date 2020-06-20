@@ -7,8 +7,8 @@
 {% block list_entries %}
     <div class="modal">
         <div class="modal-background" onclick="document.querySelector('.modal').classList.remove('is-active'); "></div>
-        <div class="modal-content">
-            <img src="">
+        <div class="modal-content" style="width: inherit; display: flex; justify-content: center; align-items: center;">
+            <img src="" style="max-height: 90%; max-width: 90%;">
         </div>
         <button class="modal-close is-large" aria-label="close"
                 onclick="document.querySelector('.modal').classList.remove('is-active'); "></button>
@@ -17,11 +17,10 @@
         <div style="display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: flex-start;">
             {% for image in object_list %}
                 <div style="margin: 5px;">
-                    <button style="background: url({{ image.picture.thumbnail.url }}); height: 200px; width: {{ image.picture.thumbnail.width }}px; border: 0;"
+                    <button class="button" style="background: url({{ image.picture.thumbnail.url }}); height: 200px; width: {{ image.picture.thumbnail.width }}px; border: 0;"
                             onclick="document.querySelector('.modal img').src = '{{ image.picture.url }}';document.querySelector('.modal').classList.add('is-active');">
                     </button>
                 </div>
-            {% empty %}
             {% endfor %}
         </div>
     </div>
