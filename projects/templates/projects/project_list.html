@@ -14,7 +14,7 @@
                         {{ project.name }}
                     </p>
                     <p class="is-size-4 my-5 has-text-weight-light">
-                        {{ project.description }}
+                        {{ project.description|safe }}
                     </p>
                     <p class="has-text-light is-size-4 my-5">
                         {% if project.git %}
