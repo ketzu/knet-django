@@ -17,7 +17,7 @@
                         </p>
                         {% for paragraph in paragraphs %}
                             <p class="has-text-light is-size-4 my-5 has-text-weight-light">
-                                {{ paragraph }}
+                                {{ paragraph|safe }}
                             </p>
                         {% empty %}
                             <p class="has-text-light is-size-4 my-5 has-text-weight-light">
