@@ -97,12 +97,19 @@
             <div class="columns is-centered mt-6 is-multiline">
                 {% for project in projects %}
                     <div class="column">
-                        <div class="card" style="width:250px;">
+                        <div class="card" style="width:400px;">
                             <div class="card-image is-centered is-vcentered">
                                 <figure class="image is-1by1">
-                                    <a target="_blank" rel="noopener noreferrer" href="{{ project.link }}">
-                                        <img src="{{ project.image.show.url }}" width="250" height="250">
+                                    {% if project.link %}
+                                        <a target="_blank" rel="noopener noreferrer" href="{{ project.link }}">
+                                    {% elif project.git %}
+                                        <a target="_blank" rel="noopener noreferrer" href="{{ project.git }}">
+                                    {% endif %}
+                                    <img src="{{ project.image.show.url }}" width="400" height="400">
+
+                                    {% if project.link || project.git %}
                                     </a>
+                                    {% endif %}
                                 </figure>
                             </div>
                             <div class="card-content">
