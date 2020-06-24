@@ -1,4 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from django.views.generic import ListView
@@ -24,4 +26,22 @@ class GalleryView(ListView):
         context = super(GalleryView, self).get_context_data(**kwargs)
         gallery = get_object_or_404(Gallery, slug=self.kwargs['slug'])
         context['title'] = gallery.title
+        context['slug'] = self.kwargs['slug']
         return context
+
+
+@login_required
+def upload(request, slug):
+    if request.method == "POST":
+        picture = request.FILES['image']
+        if picture is not None:
+            entry = Image()
+            entry.picture = picture
+
+            gallery = get_object_or_404(Gallery, slug=slug)
+            entry.in_gallery = gallery
+
+            entry.save()
+            return HttpResponse('{"status": "200"}', content_type="application/json", status=200)
+        return HttpResponse('{"status": "400", "details": "Picture is None"}', content_type="application/json", status=400)
+    return HttpResponse('{"status": "400", "details": "None"}', content_type="application/json", status=400)
