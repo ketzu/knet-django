@@ -7,10 +7,7 @@
 {% block admin_sub_header %}
     {% if perms.Gallery.change_Gallery and perms.Image.add_Image %}
         <style type="text/css" scoped>
-            .box__dragndrop,
-            .box__uploading,
-            .box__success,
-            .box__error {
+            .box__dragndrop {
                 display: none;
             }
 
@@ -31,11 +28,13 @@
         <form class="box" id="upload-box" method="post" action="" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="box__input">
-                <input class="box__file input" type="file" name="files" id="file"
-                       data-multiple-caption="{count} files selected" multiple accept="image/*"/>
-                <label for="file"><strong>Choose a file</strong><span
-                        class="box__dragndrop"> or drag it here</span>.</label>
-                <button class="box__button button" type="submit" onclick="submit_pictures(this.form); return false;">Upload</button>
+                <div class="field">
+                    <input class="box__file input" type="file" name="files" id="file"
+                           data-multiple-caption="{count} files selected" multiple accept="image/*"/>
+                </div>
+            </div>
+            <div class="columns is-multiline my-1" id="donelist">
+
             </div>
         </form>
         <script>
@@ -44,15 +43,73 @@
                 return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
             }();
             const form = document.getElementById('upload-box');
+            const done = document.getElementById('donelist');
 
-            let droppedFiles = false;
+            const csrftoken = document.querySelector("input[name='csrfmiddlewaretoken']").value;
+
+            function upload(file) {
+                let div = document.createElement('div');
+                div.classList.add("column", "is-12");
+
+                let pic = document.createElement('img');
+                pic.height = 96;
+                pic.width = 64;
+                div.appendChild(pic);
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    pic.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+
+                let name = document.createTextNode(file.name);
+                div.appendChild(name);
+                done.appendChild(div);
+
+                let fd = new FormData();
+                fd.append("image", file);
+
+                let xhttp = new XMLHttpRequest();
+                xhttp.addEventListener("load", e => {
+                    let icon = document.createElement('i');
+                    icon.classList.add("is-pulled-right");
+                    icon.classList.add("fas", "fa-check");
+                    div.appendChild(icon);
+                });
+                xhttp.addEventListener("error", e => {
+                    let icon = document.createElement('i');
+                    icon.classList.add("is-pulled-right");
+                    icon.classList.add("fas", "fa-times");
+                    div.appendChild(icon);
+                });
+                xhttp.addEventListener("abort", e => {
+                    let icon = document.createElement('i');
+                    icon.classList.add("is-pulled-right");
+                    icon.classList.add("fas", "fa-times");
+                    div.appendChild(icon);
+                });
+
+                xhttp.open("POST", "{% url 'add_picture' slug %}", true);
+                xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+                xhttp.send(fd);
+            }
+
+            form.addEventListener("input", e => {
+                for (let file of form.files.files) {
+                    upload(file);
+                }
+                form.files.files = [];
+            });
 
             if (isAdvancedUpload) {
                 form.classList.add('has-advanced-upload');
 
                 form.addEventListener("drop", e => {
+                    console.log("dropping");
                     e.preventDefault();
                     e.stopPropagation();
+                    for (let file of e.dataTransfer.files) {
+                        upload(file);
+                    }
                 });
 
                 "dragover dragenter".split(" ").forEach(s => {
@@ -70,19 +127,6 @@
                         e.stopPropagation();
                     })
                 });
-
-                function submit_pictures(form) {
-                    const csrftoken = document.querySelector("input[name='csrfmiddlewaretoken']").value;
-                    for (let file of form.files.files) {
-                        let fd = new FormData();
-                        fd.append("image", file);
-                        let xhttp = new XMLHttpRequest();
-                        xhttp.open("POST", "{% url 'add_picture' slug %}", true);
-                        xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-                        xhttp.send(fd);
-                    }
-                    return 0;
-                }
             }
         </script>
     {% endif %}
