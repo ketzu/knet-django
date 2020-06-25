@@ -104,7 +104,6 @@
                 form.classList.add('has-advanced-upload');
 
                 form.addEventListener("drop", e => {
-                    console.log("dropping");
                     e.preventDefault();
                     e.stopPropagation();
                     for (let file of e.dataTransfer.files) {
