@@ -47,13 +47,20 @@
 
             const csrftoken = document.querySelector("input[name='csrfmiddlewaretoken']").value;
 
+            function set_thumbnail(pk) {
+                let xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "{% url 'set_thumbnail' slug %}", true);
+                xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+                xhttp.send(pk);
+            }
+
             function upload(file) {
                 let div = document.createElement('div');
                 div.classList.add("column", "is-12");
 
                 let pic = document.createElement('img');
-                pic.height = 96;
-                pic.width = 64;
+                pic.height = 15;
+                pic.width = 10;
                 div.appendChild(pic);
                 let reader = new FileReader();
                 reader.onload = function (e) {
@@ -143,11 +150,27 @@
     <div class="container">
         <div style="display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: flex-start;">
             {% for image in object_list %}
-                <div style="margin: 5px;">
+                <div style="margin: 5px; position:relative;">
                     <button class="button"
                             style="background: url({{ image.picture.thumbnail.url }}); height: 200px; width: {{ image.picture.thumbnail.width }}px; border: 0;"
                             onclick="document.querySelector('.modal img').src = '{{ image.picture.url }}';document.querySelector('.modal').classList.add('is-active');">
                     </button>
+                    {% if perms.Gallery.change_Gallery %}
+                        <div style="position:absolute; left: 0; top: 0; z-index: 10;"><!--
+                            <button style="background: rgba(20,20,20,0.5); border: none;" class="button is-small has-text-white"
+                                    onclick="alert('{{ image.pk }}')">
+                                <i class="fas fa-times"></i>
+                            </button>-->
+                            <button style="background: rgba(20,20,20,0.5); border: none;" class="button is-small has-text-white"
+                                    onclick="set_thumbnail({{ image.pk }})">
+                                {% if image.pk == thumb_pk %}
+                                    <i class="fa fa-star"></i>
+                                {% else %}
+                                    <i class="far fa-star"></i>
+                                {% endif %}
+                            </button>
+                        </div>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>
