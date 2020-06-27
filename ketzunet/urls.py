@@ -20,6 +20,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', include('web.urls')),
+    path('api/v1/photo/', include('photography.apiurls')),
     path('science/', include('science.urls')),
     path('blog/', include('medium.urls')),
     path('video/', include('videography.urls')),
