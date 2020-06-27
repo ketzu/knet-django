@@ -54,6 +54,18 @@
                 xhttp.send(pk);
             }
 
+            function remove_image(pk) {
+                let xhttp = new XMLHttpRequest();
+                xhttp.addEventListener("load", e=>{
+                    let target = document.querySelector("div[name='"+pk+"']");
+                    target.innerHTML = "";
+                    target.remove();
+                });
+                xhttp.open("DELETE", "{% url 'picture_api' id=123456 %}".replace('123456', pk), true);
+                xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+                xhttp.send();
+            }
+
             function upload(file) {
                 let div = document.createElement('div');
                 div.classList.add("column", "is-12");
@@ -150,17 +162,17 @@
     <div class="container">
         <div style="display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: flex-start;">
             {% for image in object_list %}
-                <div style="margin: 5px; position:relative;">
+                <div style="margin: 5px; position:relative;" name="{{ image.pk }}">
                     <button class="button"
                             style="background: url({{ image.picture.thumbnail.url }}); height: 200px; width: {{ image.picture.thumbnail.width }}px; border: 0;"
                             onclick="document.querySelector('.modal img').src = '{{ image.picture.url }}';document.querySelector('.modal').classList.add('is-active');">
                     </button>
                     {% if perms.Gallery.change_Gallery %}
-                        <div style="position:absolute; left: 0; top: 0; z-index: 10;"><!--
+                        <div style="position:absolute; left: 0; top: 0; z-index: 10;">
                             <button style="background: rgba(20,20,20,0.5); border: none;" class="button is-small has-text-white"
-                                    onclick="alert('{{ image.pk }}')">
+                                    onclick="remove_image('{{ image.pk }}')">
                                 <i class="fas fa-times"></i>
-                            </button>-->
+                            </button>
                             <button style="background: rgba(20,20,20,0.5); border: none;" class="button is-small has-text-white"
                                     onclick="set_thumbnail({{ image.pk }})">
                                 {% if image.pk == thumb_pk %}

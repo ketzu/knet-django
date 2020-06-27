@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'photography.apps.PhotographyConfig',
     'videography.apps.VideographyConfig',
     'projects.apps.ProjectsConfig',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
