@@ -70,21 +70,21 @@
 
                                     <p class="title">
                                         {{ project.name }}
-                                    </p>
-                                    <p class="has-text-light is-size-4 my-5">
-                                        {% if project.git %}
-                                            <a target="_blank" rel="noopener noreferrer" class="mx-2"
-                                               href="{{ project.git }}">
-                                                <i class="fab fa-github fa-2x"></i>
-                                            </a>
-                                        {% endif %}
+                                        <span class="has-text-light is-size-4 my-5">
+                                            {% if project.git %}
+                                                <a target="_blank" rel="noopener noreferrer" class="mx-2"
+                                                   href="{{ project.git }}">
+                                                    <i class="fab fa-github"></i>
+                                                </a>
+                                            {% endif %}
 
-                                        {% if project.link %}
-                                            <a target="_blank" rel="noopener noreferrer" class="mx-2"
-                                               href="{{ project.link }}">
-                                                <i class="fas fa-external-link-alt fa-2x"></i>
-                                            </a>
-                                        {% endif %}
+                                            {% if project.link %}
+                                                <a target="_blank" rel="noopener noreferrer" class="mx-2"
+                                                   href="{{ project.link }}">
+                                                    <i class="fas fa-external-link-alt"></i>
+                                                </a>
+                                            {% endif %}
+                                        </span>
                                     </p>
                                 </div>
                             </div>
@@ -153,14 +153,6 @@
                 {% for gallery in galleries %}
                     {% include 'photography/single_gallery.html' %}
                 {% endfor %}
-            </div>
-        </div>
-    </section>
-
-    <!-- Videos -->
-    <section class="section has-background-light">
-        <div class="container has-text-centered mb-6">
-            <div class="columns is-centered is-vcentered is-multiline">
                 {% for video in videos %}
                     {% include 'videography/single_video.html' %}
                 {% endfor %}
